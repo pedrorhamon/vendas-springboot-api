@@ -29,7 +29,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public void salva(@RequestBody Cliente cliente) {
+	public void salvar(@RequestBody Cliente cliente) {
 		this.clienteService.salvar(cliente);
 	}
 	
@@ -39,7 +39,7 @@ public class ClienteController {
 	}
 	
 
-	@PutMapping("/{clienteId}")
+	@PutMapping("/{Id}")
 	public void  atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
 		BeanUtils.copyProperties(cliente, "id");
 		this.clienteService.salvar(cliente);

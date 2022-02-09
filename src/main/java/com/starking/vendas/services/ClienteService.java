@@ -22,7 +22,7 @@ public class ClienteService {
 		this.clienteRepository.save(cliente);
 	}
 	
-	public void deletar(Long clienteId) {
-		this.clienteRepository.deleteById(clienteId);
+	public void deletar(Long id) {
+		this.clienteRepository.deleteById(id);
 	}
 }
