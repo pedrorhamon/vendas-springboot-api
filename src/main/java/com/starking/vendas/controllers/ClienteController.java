@@ -40,8 +40,8 @@ public class ClienteController {
 	
 
 	@PutMapping("/{Id}")
-	public void  atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
-		BeanUtils.copyProperties(cliente, "id");
+	public void  atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+		BeanUtils.copyProperties(cliente, id, "id");
 		this.clienteService.salvar(cliente);
 	}
 }

@@ -21,7 +21,8 @@ public class ClienteService {
 	public void salvar(Cliente cliente) {
 		this.clienteRepository.save(cliente);
 	}
-	
+
+	@Transactional(readOnly = true)
 	public void deletar(Long id) {
 		this.clienteRepository.deleteById(id);
 	}
