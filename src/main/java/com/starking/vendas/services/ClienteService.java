@@ -1,7 +1,5 @@
 package com.starking.vendas.services;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +11,8 @@ public class ClienteService {
 	
 	private ClienteRepository clienteRepository;
 	
-	public List<Cliente> buscarTodos(){
-		return this.clienteRepository.findAll();
+	public void buscarTodos(Long id) {
+		this.clienteRepository.findById(id);
 	}
 	
 	@Transactional

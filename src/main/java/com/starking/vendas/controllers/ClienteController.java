@@ -1,9 +1,10 @@
 package com.starking.vendas.controllers;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starking.vendas.entities.Cliente;
+import com.starking.vendas.repositories.ClienteRepository;
 import com.starking.vendas.services.ClienteService;
 
 @RestController
@@ -23,9 +26,17 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	@GetMapping
-	public List<Cliente> buscarTodos(){
-		return this.clienteService.buscarTodos();
+	@ResponseBody
+	public ResponseEntity<Cliente> buscarTodos(@PathVariable Long id){
+		 Optional<Cliente> cliente = this.clienteRepository.findById(id);
+		 if(cliente.isPresent()) {			 
+			 return ResponseEntity.ok(cliente.get());		 
+		 }
+		return ResponseEntity.badRequest().build();
 	}
 	
 	@PostMapping
