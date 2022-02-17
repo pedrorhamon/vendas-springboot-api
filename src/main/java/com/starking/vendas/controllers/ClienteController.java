@@ -40,6 +40,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
+	@ResponseBody
 	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
 		Cliente clienteNew = this.clienteService.salvar(cliente);
 		if(clienteNew != null) {
