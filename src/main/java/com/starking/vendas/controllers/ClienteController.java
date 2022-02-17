@@ -40,8 +40,12 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public void salvar(@RequestBody Cliente cliente) {
-		this.clienteService.salvar(cliente);
+	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
+		Cliente clienteNew = this.clienteService.salvar(cliente);
+		if(clienteNew != null) {
+			return ResponseEntity.ok(clienteNew);
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping

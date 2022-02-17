@@ -16,8 +16,8 @@ public class ClienteService {
 	}
 	
 	@Transactional
-	public void salvar(Cliente cliente) {
-		this.clienteRepository.save(cliente);
+	public Cliente salvar(Cliente cliente) {
+		return this.clienteRepository.save(cliente);
 	}
 
 	@Transactional(readOnly = true)
