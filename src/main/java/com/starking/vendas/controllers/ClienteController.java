@@ -1,5 +1,6 @@
 package com.starking.vendas.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -31,7 +32,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	@GetMapping
+	@GetMapping("/{id}")
 	@ResponseBody
 	public ResponseEntity<Cliente> buscarTodos(@PathVariable Long id){
 		 Optional<Cliente> cliente = this.clienteRepository.findById(id);
@@ -41,6 +42,11 @@ public class ClienteController {
 		return ResponseEntity.badRequest().build();
 	}
 	
+	@GetMapping
+	public List<Cliente>  findAll(){
+		 return this.clienteService.findAll();
+	}
+		
 	@PostMapping
 	@ResponseBody
 	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
@@ -59,7 +65,7 @@ public class ClienteController {
 	
 
 	@PutMapping("/{id}")
-	public void  atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+	public void atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
 		BeanUtils.copyProperties(cliente, id, "id");
 		this.clienteService.salvar(cliente);
 	}
