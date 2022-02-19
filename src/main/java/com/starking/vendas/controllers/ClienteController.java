@@ -33,7 +33,6 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping("/{id}")
-	@ResponseBody
 	public ResponseEntity<Cliente> buscarTodos(@PathVariable Long id){
 		 Optional<Cliente> cliente = this.clienteRepository.findById(id);
 		 if(cliente.isPresent()) {			 
@@ -48,7 +47,6 @@ public class ClienteController {
 	}
 		
 	@PostMapping
-	@ResponseBody
 	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
 		Cliente clienteNew = this.clienteService.salvar(cliente);
 		if(clienteNew != null) {
