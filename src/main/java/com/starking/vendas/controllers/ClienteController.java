@@ -32,7 +32,7 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping("/{id}")
-	public Cliente buscarTodos(@PathVariable Long id){
+	public Cliente buscarPorId(@PathVariable Long id){
 		return this.clienteRepository
 				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
