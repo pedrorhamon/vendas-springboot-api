@@ -1,7 +1,6 @@
 package com.starking.vendas.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.starking.vendas.entities.Cliente;
 import com.starking.vendas.repositories.ClienteRepository;
@@ -33,12 +32,12 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarTodos(@PathVariable Long id){
-		 Optional<Cliente> cliente = this.clienteRepository.findById(id);
-		 if(cliente.isPresent()) {			 
-			 return ResponseEntity.ok(cliente.get());		 
-		 }
-		return ResponseEntity.badRequest().build();
+	public Cliente buscarTodos(@PathVariable Long id){
+		return this.clienteRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Cliente não encontrado"));
+		
 	}
 	
 	@GetMapping
