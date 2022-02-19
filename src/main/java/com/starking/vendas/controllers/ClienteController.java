@@ -46,6 +46,7 @@ public class ClienteController {
 	}
 		
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
 		Cliente clienteNew = this.clienteService.salvar(cliente);
 		if(clienteNew != null) {
