@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemPedidoDTO {
-	
-	private Integer produto;
+
+	private Long produto;
 	private Integer quantidade;
 
 }
