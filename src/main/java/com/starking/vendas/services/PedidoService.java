@@ -52,6 +52,7 @@ public class PedidoService {
 		this.pedidoRepository.deleteById(id);
 	}
 
+	@SuppressWarnings("unused")
 	private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> itemPedidoDTO) {
 		if( itemPedidoDTO.isEmpty()) {
 			throw new RegraNegocioException("Não possivel realizar um pedido");
