@@ -1,6 +1,7 @@
 package com.starking.vendas.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,10 @@ public class PedidoService {
 					itemPedido.setProduto(produto);
 					return itemPedido;
 				}).collect(Collectors.toList());
+	}
+	
+	public Optional<Pedido> obterPedidoCompleto(Long codigo) {
+		return this.pedidoRepository.findByIdFetchItems(codigo);
 	}
 
 }
