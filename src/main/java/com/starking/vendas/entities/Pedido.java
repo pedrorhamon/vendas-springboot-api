@@ -26,23 +26,22 @@ import lombok.Setter;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-	
-	 @ManyToOne
-	    @JoinColumn(name = "cliente_id")
-	    private Cliente cliente;
 
-	    @Column(name = "data_pedido")
-	    private LocalDate dataPedido;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
-	    @Column(name = "total", precision = 20, scale = 2)
-	    private BigDecimal total;
+	@Column(name = "data_pedido")
+	private LocalDate dataPedido;
 
-	    @OneToMany(mappedBy = "pedido")
-	    private List<ItemPedido> itens;
+	@Column(name = "total", precision = 20, scale = 2)
+	private BigDecimal total;
 
-	}
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> itens;
+}
