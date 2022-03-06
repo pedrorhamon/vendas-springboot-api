@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,7 +23,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.starking.vendas.entities.ItemPedido;
 import com.starking.vendas.entities.Pedido;
+import com.starking.vendas.entities.enums.StatusPedidoEnum;
 import com.starking.vendas.services.PedidoService;
+import com.starking.vendas.services.dtos.AtualizacaoStatusPedidoDTO;
 import com.starking.vendas.services.dtos.InformacaoItemPedidoDTO;
 import com.starking.vendas.services.dtos.InformacoesPedidoDTO;
 
@@ -60,6 +63,14 @@ public class PedidoController {
 		BeanUtils.copyProperties(pedido, id, "id");
 		this.pedidoService.salvar(pedido);
 	}
+	
+	@PatchMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void update(@PathVariable Long id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+		String novoPedido = dto.getNovoStatus();
+		this.pedidoService.atualizaStatus(id, StatusPedidoEnum.valueOf(novoPedido));
+	}
+	
 	
 	@GetMapping("/{id}")
 	public InformacoesPedidoDTO getById(@PathVariable Long id) {

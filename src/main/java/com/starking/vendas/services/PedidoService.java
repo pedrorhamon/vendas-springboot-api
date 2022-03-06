@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.starking.vendas.entities.ItemPedido;
 import com.starking.vendas.entities.Pedido;
 import com.starking.vendas.entities.Produto;
+import com.starking.vendas.entities.enums.StatusPedidoEnum;
 import com.starking.vendas.exception.RegraNegocioException;
 import com.starking.vendas.repositories.PedidoRepository;
 import com.starking.vendas.repositories.ProdutoRepository;
@@ -77,6 +78,15 @@ public class PedidoService {
 	
 	public Optional<Pedido> obterPedidoCompleto(Long codigo) {
 		return this.pedidoRepository.findByIdFetchItems(codigo);
+	}
+	
+	@Transactional
+	public void atualizaStatus(Long id, StatusPedidoEnum statusPedido) {
+		this.pedidoRepository.findById(id)
+		.map(pedido -> {
+			pedido.setStatus(statusPedido);
+			return this.pedidoRepository.save(pedido);
+		}).orElseThrow(() -> new RegraNegocioException("Codigo não é possivel alterar"));
 	}
 
 }
