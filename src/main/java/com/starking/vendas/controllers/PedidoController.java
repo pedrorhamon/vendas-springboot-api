@@ -64,9 +64,9 @@ public class PedidoController {
 		this.pedidoService.salvar(pedido);
 	}
 	
-	@PatchMapping("/{id}")
+	@PatchMapping("/{id}/status")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable Long id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+	public void atualizaStatus(@PathVariable Long id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
 		String novoPedido = dto.getNovoStatus();
 		this.pedidoService.atualizaStatus(id, StatusPedidoEnum.valueOf(novoPedido));
 	}
@@ -76,7 +76,7 @@ public class PedidoController {
 	public InformacoesPedidoDTO getById(@PathVariable Long id) {
 		return this.pedidoService.obterPedidoCompleto(id)
 				.map(p -> converte(p))
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "pEDIDO N ENCONTRADO"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PEDIDO N ENCONTRADO"));
 	}
 	
 	private InformacoesPedidoDTO converte(Pedido pedido) {
