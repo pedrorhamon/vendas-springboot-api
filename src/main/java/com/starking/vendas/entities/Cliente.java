@@ -35,7 +35,7 @@ public class Cliente {
 	@Column(name = "id")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message = "Campo Nome é obrigatório!")
 	@Column(name = "nome")
 	@Size(min = 3, max = 100)
 	private String nome;

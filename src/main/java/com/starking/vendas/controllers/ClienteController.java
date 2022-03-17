@@ -2,6 +2,8 @@ package com.starking.vendas.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +49,7 @@ public class ClienteController {
 		
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> salvar(@RequestBody @Valid Cliente cliente) {
 		Cliente clienteNew = this.clienteService.salvar(cliente);
 		if(clienteNew != null) {
 			return ResponseEntity.ok(clienteNew);
