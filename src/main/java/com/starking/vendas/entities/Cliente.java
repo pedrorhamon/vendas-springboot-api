@@ -45,6 +45,7 @@ public class Cliente {
 	private Set<Pedido> pedidos;
 	
 	@Column(name = "cpf", unique = true)
-	@CPF
+	@CPF(message = "Informe um CPF valido")
+	@NotNull(message = "Campo CPF é obrigatório!")
 	private String cpf;
 }
