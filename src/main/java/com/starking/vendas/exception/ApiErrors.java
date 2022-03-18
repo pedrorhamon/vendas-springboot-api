@@ -18,6 +18,10 @@ public class ApiErrors {
 		this.errors = Arrays.asList(msg);
 	}
 	
+	public ApiErrors(List<String> errors) {
+		this.errors = errors;
+	}
+	
 	@ExceptionHandler(PedidoNaoEncontradoException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ApiErrors handlePedidoFoundException(PedidoNaoEncontradoException msg) {
