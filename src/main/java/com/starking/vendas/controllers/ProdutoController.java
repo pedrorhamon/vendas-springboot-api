@@ -2,6 +2,8 @@ package com.starking.vendas.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +49,7 @@ public class ProdutoController {
 		
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Produto> salvar(@RequestBody Produto produto) {
+	public ResponseEntity<Produto> salvar(@RequestBody @Valid Produto produto) {
 		Produto produtoNew = this.produtoService.salvar(produto);
 		if(produtoNew != null) {
 			return ResponseEntity.ok(produtoNew);
@@ -63,7 +65,7 @@ public class ProdutoController {
 	
 
 	@PutMapping("/{id}")
-	public void atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+	public void atualizar(@PathVariable Long id, @RequestBody @Valid Produto produto) {
 		BeanUtils.copyProperties(produto, id, "id");
 		this.produtoService.salvar(produto);
 	}
