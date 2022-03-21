@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,7 @@ public class PedidoController {
 		
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Pedido> salvar(@RequestBody Pedido pedido) {
+	public ResponseEntity<Pedido> salvar(@RequestBody @Valid Pedido pedido) {
 		return this.pedidoService.salvar(pedido);
 	}
 	
@@ -59,7 +61,7 @@ public class PedidoController {
 	}
 	
 	@PutMapping("/{id}")
-	public void atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
+	public void atualizar(@PathVariable Long id, @RequestBody @Valid Pedido pedido) {
 		BeanUtils.copyProperties(pedido, id, "id");
 		this.pedidoService.salvar(pedido);
 	}
