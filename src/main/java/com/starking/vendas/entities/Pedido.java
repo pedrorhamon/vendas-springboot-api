@@ -34,7 +34,7 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")

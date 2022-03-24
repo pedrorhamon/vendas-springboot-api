@@ -39,12 +39,12 @@ public class PedidoController {
 	private PedidoService pedidoService;
 		
 	@GetMapping("/{id}")
-	public Pedido buscarPorId(@PathVariable Long id){
+	public Pedido buscarPorId(@PathVariable Integer id){
 		return this.pedidoService.buscarTodos(id);
 	}
 	
 	@GetMapping
-	public List<Pedido>  findAll(){
+	public List<Pedido> findAll(){
 		 return this.pedidoService.findAll();
 	}
 		
@@ -56,30 +56,24 @@ public class PedidoController {
 	
 	@DeleteMapping
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deletar(@PathVariable Long id) {
+	public void deletar(@PathVariable Integer id) {
 		this.pedidoService.deletar(id);
 	}
 	
-	@PutMapping("/{id}")
-	public void atualizar(@PathVariable Long id, @RequestBody @Valid Pedido pedido) {
+	@PutMapping("/pedido/{id}")
+	public void atualizar(@PathVariable Integer id, @RequestBody @Valid Pedido pedido) {
 		BeanUtils.copyProperties(pedido, id, "id");
 		this.pedidoService.salvar(pedido);
 	}
 	
 	@PatchMapping("/{id}/status")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizaStatus(@PathVariable Long id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
+	public void atualizaStatus(@PathVariable Integer id, @RequestBody AtualizacaoStatusPedidoDTO dto) {
 		String novoPedido = dto.getNovoStatus();
 		this.pedidoService.atualizaStatus(id, StatusPedidoEnum.valueOf(novoPedido));
 	}
 	
 	
-	@GetMapping("/{id}")
-	public InformacoesPedidoDTO getById(@PathVariable Long id) {
-		return this.pedidoService.obterPedidoCompleto(id)
-				.map(p -> converte(p))
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PEDIDO N ENCONTRADO"));
-	}
 	
 	private InformacoesPedidoDTO converte(Pedido pedido) {
 		return InformacoesPedidoDTO.builder()

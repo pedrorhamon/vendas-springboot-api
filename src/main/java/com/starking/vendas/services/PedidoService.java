@@ -29,7 +29,7 @@ public class PedidoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	public Pedido buscarTodos(Long id) {
+	public Pedido buscarTodos(Integer id) {
 		return this.pedidoRepository
 				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -50,7 +50,7 @@ public class PedidoService {
 	}
 
 	@Transactional(readOnly = true)
-	public void deletar(Long id) {
+	public void deletar(Integer id) {
 		this.pedidoRepository.deleteById(id);
 	}
 
@@ -76,12 +76,9 @@ public class PedidoService {
 				}).collect(Collectors.toList());
 	}
 	
-	public Optional<Pedido> obterPedidoCompleto(Long codigo) {
-		return this.pedidoRepository.findByIdFetchItems(codigo);
-	}
 	
 	@Transactional
-	public void atualizaStatus(Long id, StatusPedidoEnum statusPedido) {
+	public void atualizaStatus(Integer id, StatusPedidoEnum statusPedido) {
 		this.pedidoRepository.findById(id)
 		.map(pedido -> {
 			pedido.setStatus(statusPedido);
