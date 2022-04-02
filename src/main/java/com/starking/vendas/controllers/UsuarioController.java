@@ -21,11 +21,13 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioController {
 	
 	private final UsuarioServiceImpl usuarioService;
-	private final PasswordEncoder encoder;
+	private final PasswordEncoder passwordEncoder;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	private Usuario salvarUsuario(@RequestBody @Valid Usuario usuario) {
+		String senhaCrypto = passwordEncoder.encode(usuario.getSenha());
+		usuario.setSenha(senhaCrypto);
 		return this.usuarioService.salvar(usuario);
 	}
 
