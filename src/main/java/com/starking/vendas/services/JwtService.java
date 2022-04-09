@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.starking.vendas.entities.Usuario;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -33,5 +35,28 @@ public class JwtService {
 				.setExpiration(data)
 				.signWith(SignatureAlgorithm.HS512, chaveAssinatura)
 				.compact();
+	}
+	
+	private Claims obterClains(String token) throws ExpiredJwtException{
+		return Jwts
+				.parser()
+				.setSigningKey(chaveAssinatura)
+				.parseClaimsJws(token)
+				.getBody();
+	}
+	  
+	public boolean tokenValido(String token) throws ExpiredJwtException {
+		try {
+			Claims claims = obterClains(token);
+			Date dataExpiracao = claims.getExpiration();
+			LocalDateTime data = dataExpiracao.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+			return !LocalDateTime.now().isAfter(data);
+		}catch(Exception e) {
+			return false;
+		}
+	}
+	
+	public String obterLoginUsuario(String token) throws ExpiredJwtException {
+		return (String) obterClains(token).getSubject();
 	}
 }
