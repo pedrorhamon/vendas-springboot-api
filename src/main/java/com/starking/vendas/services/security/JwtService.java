@@ -1,4 +1,4 @@
-package com.starking.vendas.services;
+package com.starking.vendas.services.security;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
